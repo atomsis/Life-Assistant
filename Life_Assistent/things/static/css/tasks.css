@@ -1,0 +1,77 @@
+body {
+    background-image: url('/static/img/town.webp');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+
+a.add {
+    color: green;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 15px 30px;
+    padding-bottom:10px;
+    border: 2px solid green;
+    border-radius: 55px;
+    background-color: #F0E68C; /* Цвет фона */
+    transition: transform 0.3s ease-in-out;
+}
+
+a.add:hover {
+    transform: scale(1.2);
+}
+
+/* Добавляем стили к списку задач */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Стили для каждой задачи */
+li {
+    margin-bottom: 10px;
+    border: 2px solid #3498db; /* Синий оттенок */
+    padding: 10px;
+    border-radius: 500px;
+    background-color: #f2f7ff; /* Фоновый цвет */
+}
+
+/* Изменяем стиль текста */
+a {
+    color: #3498db; /* Синий оттенок для текста */
+    text-decoration: none;
+    font-weight: bold; /* Жирный шрифт */
+}
+
+/* При наведении добавляем эффект */
+a:hover {
+    /*text-decoration: underline;*/
+    color:red;
+}
+
+/* Стили для заголовка */
+h1 {
+    color: #FFD700; /* Синий оттенок для заголовка */
+}
+
+/* Стили для ссылок "Add Event" */
+a[href="{% url 'todo:add_task' %}"] {
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #3498db;
+    color: black; /* Белый цвет для текста */
+    /*text-decoration: none;*/
+    border-radius: 5px;
+}
+
+/* Эффект при наведении на ссылку "Add Event" */
+a[href="{% url 'todo:add_task' %}"]:hover {
+    color:black;
+    background-color: #217dbb; /* Темно-синий оттенок */
+}
+
+span.current {
+    color:red;
+}

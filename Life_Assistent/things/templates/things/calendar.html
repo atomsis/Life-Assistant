@@ -1,0 +1,26 @@
+{% extends 'things/base_generic.html' %}
+
+{% block content %}
+<h1>{{ user.username }}'s Calendar</h1>
+<a href="{% url 'todo:add_task' %}" class="add">Add Event</a>
+<ul>
+    {% for event in tasks %}
+        <li>
+            <a href="{{ event.get_absolute_url}}">
+                {{ event.date }}: {{ event.description }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+<h1>{{user.username}}`s Черновики</h1>
+<ul type="square">
+    {% for draft in drafts %}
+    <li>
+        <a href="{{ draft.get_absolute_url}}">
+            {{draft.date}}: {{draft.description}}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% include "pagination.html" with page=page_obj %}
+{% endblock %}

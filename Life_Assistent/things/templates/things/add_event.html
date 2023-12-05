@@ -1,0 +1,10 @@
+{% extends 'things/base_generic.html' %}
+
+{% block content %}
+  <h1>Add Event</h1>
+  <form method="post" action="{% url 'todo:add_task' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Event</button>
+  </form>
+{% endblock %}

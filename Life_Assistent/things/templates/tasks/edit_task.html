@@ -1,0 +1,17 @@
+{% extends 'tasks/base_task.html' %}
+{% load static %}
+
+{% block title %}
+    Редактирование задачи - {{ date }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Редактирование задачи - {{ date }}</h1>
+        <form method="post" action="{% url 'todo:edit_task' date=date %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Сохранить изменения</button>
+        </form>
+    </div>
+{% endblock %}

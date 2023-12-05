@@ -1,0 +1,24 @@
+{% extends 'tasks/base_task.html' %}
+{% load static %}
+
+{% block title %}
+    {{ task.date }}
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
+    <div class="container">
+        <div class="task-title">{{ task.date }}</div>
+        {% for taska in task_split %}
+            <div class="task">{{ taska }}</div>
+        {% endfor %}
+    </div>
+    {% if task.status == task.Status.PUBLISHED %}
+        <a href="{% url 'todo:tasks_share' task.date %}" class="share">
+            Поделиться
+        </a>
+    {% endif %}
+    <a href="{% url 'todo:edit_task' date=task.date %}">
+        Редактировать список дел
+    </a>
+{% endblock %}

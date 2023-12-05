@@ -1,0 +1,20 @@
+{% extends 'tasks/base_task.html' %}
+{% load static %}
+
+{% block title %} Поделиться задачками {% endblock %}
+{% block content %}
+     <link rel="stylesheet" type="text/css" href="{% static 'css/share.css' %}">
+    {% if sent %}
+        <h1></h1>
+        <p>
+            "{{ tasks.description }}" успешно отправлено на почту {{ form.cleaned_data.to }}
+        </p>
+    {% else %}
+        <h1 id="title"> Поделиться "{{ tasks.date }}" по e-mail </h1>
+        <form method="post" class="description">
+            {{form.as_p}}
+            {% csrf_token %}
+            <input type="submit" value="Отправить на почту">
+        </form>
+    {% endif %}
+{% endblock %}

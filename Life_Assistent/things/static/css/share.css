@@ -1,0 +1,64 @@
+body {
+
+    background-image: url('/static/img/share.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Закругление углов */
+    transition: box-shadow 0.3s ease; /* Плавное изменение тени при наведении */
+}
+
+.container:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Изменение тени при наведении */
+}
+
+h1 {
+    color: #007bff;
+}
+
+
+form {
+    margin-top: 20px;
+}
+
+form input[type="submit"] {
+    background-color: rgb(43, 65, 98);
+    width: 200px;
+    height: 60px;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 10px; /* Закругление углов кнопки */
+    transition: transform 5s ease, box-shadow 0.3s ease; /* Анимация при наведении */
+}
+
+form input[type="submit"]:hover {
+    background-color: rgb(64, 86, 244);
+    width: 215px;
+    height: 70px;
+    transform: rotate(1deg) scale(1.01); /* Поворот и увеличение при наведении */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Изменение тени при наведении */
+}
+
+p {
+    margin-top: 10px;
+}
+
+h1#title{
+    color:rgb(35, 64, 12);
+}
+form.description{
+    color:rgb(77, 17, 16);
+    font-size:18px;
+    font-variant: small-caps;
+    font-weight: 800;
+}
