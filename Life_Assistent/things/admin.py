@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TodoList
+from .models import TodoList,Comment
 
 # Register your models here.
 
@@ -11,3 +11,9 @@ class TodoListAdmin(admin.ModelAdmin):
     raw_id_fields = ['user',]
     date_hierarchy = 'date'
     ordering = ['status', 'date']
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['name','email','created','active']
+    list_filter = ['active','created']
+    search_fields = ['text','email','name']

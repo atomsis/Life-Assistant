@@ -37,3 +37,22 @@ class TodoList(models.Model):
         return reverse('todo:task_detail',
                        # args=[self.date.strftime('%Y-%m-%d')])
                         args=[self.date.year, self.date.month, self.date.day])
+
+class Comment(models.Model):
+    task = models.ForeignKey(TodoList,
+                             on_delete=models.CASCADE,
+                             related_name='comments')
+    name = models.CharField(max_length=30)
+    email = models.EmailField()
+    text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['created']
+        indexes = [
+            models.Index(fields=['created']),
+        ]
+
+    def __str__(self):
+        return f'Комментарий к списку задач {self.task},от {self.name}'

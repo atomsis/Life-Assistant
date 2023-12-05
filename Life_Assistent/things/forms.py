@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import TodoList
+from .models import TodoList,Comment
 from django.forms import DateInput
 
 class TodoListSendForm(forms.Form):
@@ -26,3 +26,8 @@ class TodoListForm(forms.ModelForm):
             self.add_error('date', "У вас уже есть список дел на данный день.")
 
         return cleaned_data
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['name','email','text']

@@ -1,14 +1,16 @@
 from django.core.mail import send_mail
 from django.http import Http404
+from django.views.decorators.http import require_POST
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from .models import TodoList
+from .models import TodoList, Comment
 from django.contrib.auth.decorators import login_required
-from .forms import TodoListForm,TodoListSendForm
+from .forms import TodoListForm, TodoListSendForm, CommentForm
 from datetime import date
-from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-from  django.views.generic import ListView,View
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import ListView, View
 from django.views.generic.edit import UpdateView
+
 
 ###---------------------Не актуально переделал в класс ---------------------------------
 # @login_required
@@ -25,6 +27,7 @@ from django.views.generic.edit import UpdateView
 #         tasks = paginator.page(1)
 #     return render(request, 'things/calendar.html', {'events': tasks})
 ###------------------------------------------------------------------------------------
+
 @login_required
 def add_task(request):
     if request.method == 'POST':
@@ -39,43 +42,48 @@ def add_task(request):
     return render(request, 'things/add_event.html', {'form': form})
 
 
-def tasks_share(request,date):
+def tasks_share(request, date):
     tasks = get_object_or_404(TodoList,
-                             date=date,
-                             # status=TodoList.Status.PUBLISHED
+                              date=date,
+                              # status=TodoList.Status.PUBLISHED
                               )
-    sent=False
+    sent = False
 
     if request.method == 'POST':
-        form=TodoListSendForm(data=request.POST)
+        form = TodoListSendForm(data=request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             task_url = request.build_absolute_uri(
                 tasks.get_absolute_url())
             subject = f"{cd['name_author']} поделился(ась) своим Списком дел с тобой.'{tasks.description}"
             message = f"Перейди по ссылке {task_url} - там ПОЛНЫЙ список дел"
-            send_mail(subject,message,'your_account@gmail.com',[cd['to']])
+            send_mail(subject, message, 'your_account@gmail.com', [cd['to']])
 
-            sent=True
+            sent = True
     else:
         form = TodoListSendForm()
-    return render(request,'tasks/share_task.html',
-                {'tasks':tasks,
-                'form':form,
-                 'sent':sent})
+    return render(request, 'tasks/share_task.html',
+                  {'tasks': tasks,
+                   'form': form,
+                   'sent': sent})
 
-def task_detail(request,year,month,day):
+
+def task_detail(request, year, month, day):
     task = get_object_or_404(TodoList,
-                            date__year=year,
-                            date__month=month,
-                            date__day=day,
-                            # status=TodoList.Status.PUBLISHED
-                            )
+                             date__year=year,
+                             date__month=month,
+                             date__day=day,
+                             # status=TodoList.Status.PUBLISHED
+                             )
     task_split = task.tasks.split('\n')
+    comments = task.comments.filter(active=True)
+    form = CommentForm
     return render(request,
                   'tasks/detail.html',
-                  {'task':task,
-                        'task_split':task_split})
+                  {'task': task,
+                   'task_split': task_split,
+                   'comments': comments,
+                   'form': form, })
 
 
 class TaskListView(ListView):
@@ -86,14 +94,14 @@ class TaskListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['drafts'] =TodoList.objects.filter(status=TodoList.Status.DRAFT)
+        context['drafts'] = TodoList.objects.filter(status=TodoList.Status.DRAFT)
         return context
 
 
-def edit_task(request,date):
+def edit_task(request, date):
     return render(request,
                   'tasks/edit_task.html',
-                  {'date':date})
+                  {'date': date})
 
 
 class TaskUpdateView(UpdateView):
@@ -102,9 +110,9 @@ class TaskUpdateView(UpdateView):
     template_name = 'tasks/edit_task.html'
     success_url = reverse_lazy('todo:task_list')
 
-    def get_object(self,queryset=None):
+    def get_object(self, queryset=None):
         date = self.kwargs.get('date')
-        return get_object_or_404(TodoList,date=date)
+        return get_object_or_404(TodoList, date=date)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -112,7 +120,7 @@ class TaskUpdateView(UpdateView):
         return context
 
     def form_valid(self, form):
-        date =self.kwargs.get('date')
+        date = self.kwargs.get('date')
         existing_task = TodoList.objects.filter(date=date).exclude(pk=self.get_object().pk).first()
 
         if existing_task:
@@ -122,3 +130,21 @@ class TaskUpdateView(UpdateView):
 
         return super().form_valid(form)
 
+
+@require_POST
+def task_comment(request, date):
+    task = get_object_or_404(TodoList,
+                             date=date,
+                             status=TodoList.Status.PUBLISHED)
+    comment = None
+
+    form = CommentForm(data=request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.task = task
+        comment.save()
+    return render(request,
+                  'tasks/comment.html',
+                  {'task': task,
+                   'form': form,
+                   'comment': comment})
