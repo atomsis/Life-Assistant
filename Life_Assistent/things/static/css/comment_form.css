@@ -1,0 +1,46 @@
+<style>
+ .comment-form {
+    max-width: 400px;  /* Устанавливаем максимальную ширину формы */
+    margin: 20px auto; /* Выравниваем форму по центру */
+}
+
+.comment-form h2 {
+    font-size: 24px;   /* Устанавливаем размер шрифта заголовка */
+    color: #333;       /* Устанавливаем цвет текста заголовка */
+}
+
+.comment-form label {
+    display: block;    /* Размещаем метки на новой строке */
+    margin-bottom: 8px; /* Добавляем отступ снизу метки */
+    font-size: 16px;   /* Устанавливаем размер шрифта метки */
+}
+
+.comment-form input[type="text"],
+.comment-form textarea {
+    width: 100%;        /* Занимаем 100% доступной ширины */
+    padding: 10px;      /* Добавляем отступы вокруг текстовых полей */
+    margin-bottom: 16px; /* Добавляем отступ снизу текстовых полей */
+    border: 1px solid #ccc; /* Устанавливаем границу для текстовых полей */
+    border-radius: 4px;    /* Добавляем закругление углов */
+}
+
+.comment-form input[type="submit"] {
+    background-color: rgb(0, 0, 139); /* Устанавливаем цвет фона кнопки "Прокомментировать" */
+    color: #fff;       /* Устанавливаем цвет текста кнопки */
+    padding: 12px 20px; /* Добавляем отступы вокруг текста кнопки */
+    font-size: 18px;   /* Устанавливаем размер шрифта кнопки */
+    border: none;      /* Убираем границу кнопки */
+    border-radius: 4px; /* Добавляем закругление углов */
+    cursor: pointer;    /* Устанавливаем указатель при наведении на кнопку */
+}
+
+.comment-form input[type="submit"]:hover {
+    background-color: rgb(0, 100, 139); /* Изменяем цвет фона кнопки при наведении */
+}
+</style>
+<h2>Добавить коммент</h2>
+<form action="{% url 'todo:task_comment' task.date %}" method="post">
+ {{ form.as_p }}
+ {% csrf_token %}
+ <p><input type="submit" value="Прокоментировать"></p>
+</form>

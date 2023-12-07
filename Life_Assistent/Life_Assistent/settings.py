@@ -27,7 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+###---------------------------------------------------------
 ### source venv/bin/activate
+###---------------------------------------------------------
 
 # Application definition
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'things.apps.ThingsConfig',
     'profile_user.apps.ProfileUserConfig',
+    'taggit',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/atomsis/Downloads/PYTHON_PROJ_НА РАБОТЕ/Life-Assistent/Life_Assistent/venv/bin/python3.11" "$0" "$@"
+'''exec' "/home/atomsis/Downloads/PYTHON_PROJ_НА РАБОТЕ/Life-Assistent/Life-Assistant/Life_Assistent/venv/bin/python3.11" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

@@ -1,5 +1,5 @@
 <h2>Добавить коммент</h2>
-<form action="{% url 'todo:task_comment' post.id %}" method="post">
+<form action="{% url 'todo:task_comment' task.date %}" method="post">
  {{ form.as_p }}
  {% csrf_token %}
  <p><input type="submit" value="Прокоментировать"></p>

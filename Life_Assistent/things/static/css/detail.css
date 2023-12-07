@@ -35,27 +35,122 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-a.share, .edit, .comment{
-    display:block;
-    width:120px;
-    height:30px;
-    font-size:20px;
+a.share, a.edit, a.back {
+    display:inline-block;
+    width:90px;
+    height:12px;
+    font-size:16px;
     border: 2px solid green;
     border-radius:55px;
-    padding:18px;
+    padding:50px 10px;
     background-color:rgb(0, 0, 139);
     color:rgb(242, 202, 199);
 }
 
-.share:hover, .edit:hover, .comment:hover {
+a.edit {
+    width:100px;
+    height:8px;
+    padding-bottom:70px;
+}
+
+.share:hover, .edit:hover, a.back:hover{
     color:rgb(139, 0, 139);
-    font-size:24px;
+    font-size:20px;
+    width:5em;
+    height:1.5em;
+}
+
+.edit:hover{
+    font-size:22px;
+    width:6em;
+    height:1.3em;
+}
+
+a.back:hover {
+    font-size:22px;
+    width:6em;
+    height:1.3em;
 }
 
 a.edit {
     background-color:rgb(25, 25, 112);
+
 }
 
 a.comment {
     background-color:rgb(0, 0, 255);
+}
+
+.empty {
+    display: inline-block;  /* Делаем блок строчно-блочным элементом */
+    padding: 8px 15px;      /* Устанавливаем отступы вокруг текста внутри кнопки */
+    font-size: 16px;
+    border: 2px solid green;
+    border-radius: 55px;
+    text-decoration: none;  /* Убираем подчеркивание текста (если нужно) */
+    color: #fff;            /* Устанавливаем цвет текста */
+    background-color: rgb(0, 100, 139);  /* Устанавливаем цвет фона кнопки */
+}
+
+
+.info-com {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    border-bottom: 1px solid red; /* Добавляем рамку снизу */
+    padding-bottom: 8px; /* Добавляем отступ снизу */
+}
+
+.com {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    border-bottom: 1px solid blue; /* Добавляем рамку снизу */
+
+}
+
+/* Стили для кнопки */
+.comment-form input[type="submit"] {
+    background-color: #3498db; /* Цвет фона кнопки */
+    color: #fff; /* Цвет текста кнопки */
+    padding: 12px 20px;
+    font-size: 18px;
+    border: 1px solid #2980b9; /* Цвет рамки кнопки */
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comment-form input[type="submit"]:hover {
+    background-color: #2980b9; /* Цвет фона кнопки при наведении */
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back {
+    font-size: 20px;
+    border: 2px solid green;
+    border-radius: 55px;
+    padding: 20px;
+    background-color: rgb(0, 0, 139);
+    color: rgb(242, 202, 199);
+}
+
+.edit, .share {
+    font-size: 20px;
+    border: 2px solid green;
+    border-radius: 55px;
+    padding: 20px;
+    background-color: rgb(0, 0, 139);
+    color: rgb(242, 202, 199);
+    margin-left: 5px;
+}
+
+.share {
+    margin-left: 500px;
 }

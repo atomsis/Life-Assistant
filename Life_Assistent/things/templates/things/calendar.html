@@ -9,6 +9,12 @@
             <a href="{{ event.get_absolute_url}}">
                 {{ event.date }}: {{ event.description }}
             </a>
+            <p class="tags">
+                Tags:
+                <div class="tag_det">
+                    {{ event.tags.all|join:", " }}
+                </div>
+            </p>
         </li>
     {% endfor %}
 </ul>

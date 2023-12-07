@@ -8,7 +8,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/home/atomsis/Downloads/PYTHON_PROJ_НА РАБОТЕ/Life-Assistent/Life_Assistent/venv"
+setenv VIRTUAL_ENV "/home/atomsis/Downloads/PYTHON_PROJ_НА РАБОТЕ/Life-Assistent/Life-Assistant/Life_Assistent/venv"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"

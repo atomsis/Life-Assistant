@@ -10,7 +10,7 @@ from datetime import date
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, View
 from django.views.generic.edit import UpdateView
-
+from taggit.models import Tag
 
 ###---------------------Не актуально переделал в класс ---------------------------------
 # @login_required
@@ -92,9 +92,16 @@ class TaskListView(ListView):
     paginate_by = 30
     template_name = 'things/calendar.html'
 
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['drafts'] = TodoList.objects.filter(status=TodoList.Status.DRAFT)
+
+        tag_slug = self.request.GET.get('tag')
+
+        if tag_slug:
+            tag = get_object_or_404(Tag,slug=tag_slug)
+            context['tasks']= context['tasks'].filter(tags__in=[tag])
         return context
 
 

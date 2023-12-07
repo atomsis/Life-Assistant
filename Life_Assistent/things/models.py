@@ -1,17 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
+
 
 # Create your models here.
+###--------Отдельный контекстный менеджер----------------------------------------------
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status=TodoList.Status.PUBLISHED)
+###-----------------------------------------------------------------------------------
+
 class TodoList(models.Model):
 
     class Status(models.TextChoices):
         DRAFT = 'DF','DRAFT'
         PUBLISHED = 'PB','PUBLISHED'
 
+
+    tags = TaggableManager()
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateField(unique=True)
     tasks = models.TextField()

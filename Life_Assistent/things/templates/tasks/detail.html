@@ -13,14 +13,38 @@
             <div class="task">{{ taska }}</div>
         {% endfor %}
     </div>
-    {% if task.status == task.Status.PUBLISHED %}
-        <a href="{% url 'todo:tasks_share' task.date %}" class="share">
-            Поделиться
-        </a>
-    {% endif %}
-    <p>
-        <a href="{% url 'todo:edit_task' date=task.date %}" class="edit">
-            Редактировать список дел
-        </a>
+         <div class="buttons-container">
+            <p >
+                <a href="{% url 'todo:task_list' %}"class="back">
+                    Назад к спискам дел
+                </a>
+            </p>
+             <a href="{% url 'todo:edit_task' date=task.date %}" class="edit">
+                Редактировать список дел
+            </a>
+             <a href="{% url 'todo:tasks_share' task.date %}" class="share">
+                Поделиться
+            </a>
+        </div>
+    {% with comments.count as total_comments %}
+         <h2>
+             {{ total_comments }} comment{{ total_comments|pluralize }}
+         </h2>
+     {% endwith %}
     </p>
+    {% for comment in comments %}
+       <div class="comment">
+       <p class="info-com">
+           Comment  by {{ comment.name }}
+           {{ comment.created }}
+       </p>
+       <p class="com">
+          {{ comment.text }}
+       </p>
+
+       </div>
+    {% empty %}
+           <p class="empty">Нет комментариев.</p>
+    {% endfor %}
+    {% include 'tasks/comment.html' %}
 {% endblock %}

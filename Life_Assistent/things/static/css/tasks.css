@@ -75,3 +75,10 @@ a[href="{% url 'todo:add_task' %}"]:hover {
 span.current {
     color:red;
 }
+
+.tag_det {
+    font-size: 16px;
+    color: #006400;
+    text-decoration: underline;
+    margin-top: 8px;
+}
