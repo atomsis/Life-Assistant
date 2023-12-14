@@ -32,7 +32,7 @@ ul {
 li {
     margin-bottom: 10px;
     border: 2px solid #3498db; /* Синий оттенок */
-    padding: 10px;
+    padding-left:15px;
     border-radius: 500px;
     background-color: #f2f7ff; /* Фоновый цвет */
 }
@@ -81,4 +81,13 @@ span.current {
     color: #006400;
     text-decoration: underline;
     margin-top: 8px;
+}
+.tags{
+
+}
+.tag_det {
+    font-size: 16px;
+    color: #800000; /* Синий оттенок */
+    text-decoration: underline; /* Подчеркивание текста */
+    margin-top: 8px; /* Добавляем отступ сверху */
 }

@@ -101,7 +101,7 @@ class TaskListView(ListView):
 
         if tag_slug:
             tag = get_object_or_404(Tag,slug=tag_slug)
-            context['tasks']= context['tasks'].filter(tags__in=[tag])
+            context['tasks'] = context['tasks'].filter(tags__in=[tag])
         return context
 
 

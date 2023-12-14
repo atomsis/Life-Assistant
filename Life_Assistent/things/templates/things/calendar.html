@@ -2,6 +2,8 @@
 
 {% block content %}
 <h1>{{ user.username }}'s Calendar</h1>
+
+</p>
 <a href="{% url 'todo:add_task' %}" class="add">Add Event</a>
 <ul>
     {% for event in tasks %}
@@ -9,12 +11,12 @@
             <a href="{{ event.get_absolute_url}}">
                 {{ event.date }}: {{ event.description }}
             </a>
-            <p class="tags">
-                Tags:
-                <div class="tag_det">
-                    {{ event.tags.all|join:", " }}
-                </div>
-            </p>
+            {% for tag in event.tags.all %}
+            <a href="{% url 'todo:task_list_by_tag' tag.slug%}">
+                {{ tag.name}}
+            </a>
+            {% endfor %}
+            {% include 'includes/tags.html'%}
         </li>
     {% endfor %}
 </ul>
@@ -25,6 +27,8 @@
         <a href="{{ draft.get_absolute_url}}">
             {{draft.date}}: {{draft.description}}
         </a>
+        {% include 'includes/tags.html'%}
+
     </li>
     {% endfor %}
 </ul>
